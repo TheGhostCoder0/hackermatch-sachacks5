@@ -2,14 +2,14 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { CgSpinnerAlt } from "react-icons/cg";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
 import { auth } from "../firebase/client";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
-  const [user, authLoading] = useAuthState(auth);
+  // const [user, authLoading] = useAuthState(auth);
   const router = useRouter();
 
   return (
@@ -21,28 +21,27 @@ export default function Login() {
             const provider = new GoogleAuthProvider();
             const userInfo = await signInWithPopup(auth, provider);
 
-            // setLoading(true);
-            // const response = await fetch("/api/users", {
-            //   method: "POST",
-            //   headers: {
-            //     "Content-Type": "application/json",
-            //   },
-            //   body: JSON.stringify({
-            //     uid: userInfo.user.uid,
-            //     displayName: userInfo.user.displayName,
-            //     photoUrl: userInfo.user.photoURL,
-            //     email: userInfo.user.email,
-            //   }),
-            // });
+            setLoading(true);
+            const response = await fetch("/api/users", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                uid: userInfo.user.uid,
+                displayName: userInfo.user.displayName,
+                photoUrl: userInfo.user.photoURL,
+              }),
+            });
+            setLoading(false);
 
-            // if (!response.ok) {
-            //   toast.error("Error inserting user, check console");
-            //   console.log(await response.json());
-            //   return;
-            // }
+            if (!response.ok) {
+              toast.error("Error inserting user, check console");
+              console.log(await response.json());
+              return;
+            }
 
-            console.log("done!");
-            // router.push("/dashboard");
+            router.push("/dashboard");
           }}
           className="flex items-center bg-white hover:bg-gray-100 text-black font-semibold py-2 px-4 rounded-lg shadow-md focus:outline-none focus:ring focus:ring-blue-300"
         >
