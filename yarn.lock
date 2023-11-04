@@ -2501,6 +2501,11 @@
   "resolved" "https://registry.npmjs.org/react-firebase-hooks/-/react-firebase-hooks-5.1.1.tgz"
   "version" "5.1.1"
 
+"react-hook-form@^7.47.0":
+  "integrity" "sha512-F/TroLjTICipmHeFlMrLtNLceO2xr1jU3CyiNla5zdwsGUGu2UOxxR4UyJgLlhMwLW/Wzp4cpJ7CPfgJIeKdSg=="
+  "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.47.0.tgz"
+  "version" "7.47.0"
+
 "react-icons@^4.11.0":
   "integrity" "sha512-V+4khzYcE5EBk/BvcuYRq6V/osf11ODUM2J8hg2FDSswRrGvqiYUYPRy4OdrWaQOBj4NcpJfmHZLNaD+VH0TyA=="
   "resolved" "https://registry.npmjs.org/react-icons/-/react-icons-4.11.0.tgz"
@@ -2518,7 +2523,7 @@
   dependencies:
     "clsx" "^1.1.1"
 
-"react@*", "react@^18", "react@^18.2.0", "react@>= 16.8.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16":
+"react@*", "react@^16.8.0 || ^17 || ^18", "react@^18", "react@^18.2.0", "react@>= 16.8.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
