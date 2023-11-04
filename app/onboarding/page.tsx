@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase/client";
+import Form from "./components/Form";
 
 export default function Onboarding() {
   const [user, authLoading] = useAuthState(auth);
@@ -14,7 +15,9 @@ export default function Onboarding() {
     }
   }, []);
 
-  return (<div>
-
-  </div>);
+  return (
+    <div>
+      <Form />
+    </div>
+  );
 }
