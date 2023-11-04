@@ -46,7 +46,7 @@ export default function Login() {
 
               router.push("/onboarding");
             } else {
-              router.push("/dashboard");
+              router.push("/home");
             }
           }}
           className="flex items-center bg-white hover:bg-gray-100 text-black font-semibold py-2 px-4 rounded-lg shadow-md focus:outline-none focus:ring focus:ring-blue-300"

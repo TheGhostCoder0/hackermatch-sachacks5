@@ -13,7 +13,7 @@ export default function Home() {
       <button
         onClick={async () => {
           if (user) {
-            router.push("/dashboard");
+            router.push("/home");
           } else {
             router.push("/login");
           }
