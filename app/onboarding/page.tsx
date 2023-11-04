@@ -14,5 +14,5 @@ export default function Onboarding() {
     }
   }, []);
 
-  return <div>asdf</div>;
+  return <div></div>;
 }
