@@ -16,6 +16,9 @@ const firebaseConfig = {
 
 export enum Collections {
   users = "users",
+  messages = "messages",
+  teams = "teams",
+  dms = "dms",
 }
 
 export type TUser = {
