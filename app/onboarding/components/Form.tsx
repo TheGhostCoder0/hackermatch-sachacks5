@@ -1,5 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Collections, auth, db } from "../../firebase/client";
 
 interface InputFormData {
   name: string;
@@ -15,12 +18,19 @@ interface InputFormData {
 }
 
 const Form = () => {
+  const [user, authLoading] = useAuthState(auth);
+
   const { register, handleSubmit } = useForm<InputFormData>({
     mode: "onChange",
   });
 
-  const onSubmit = (data: InputFormData) => {
-    console.log(data);
+  const onSubmit = async (data: InputFormData) => {
+    if (!user) return;
+    await updateDoc(doc(db, Collections.users, user.uid), {
+      linkedinUrl: data.linkedin,
+      githubProfileUrl: data.github,
+      devpostProfileUrl: data.devpost,
+    });
   };
 
   return (
