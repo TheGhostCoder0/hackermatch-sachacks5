@@ -13,7 +13,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
 
   return (
     <div>
-      <header className="flex justify-between  p-4">
+      <header className="flex justify-between p-4">
         <h1 className="text-3xl font-bold underline">
           <Link href="/">HackerMatch</Link>
         </h1>
