@@ -14,7 +14,6 @@ export async function POST(request: Request) {
   const user = await setDoc(doc(db, Collections.users, body.uid), {
     displayName: body.displayName,
     photoUrl: body.photoUrl,
-    role: body.role,
 
     // extra urls
     linkedinUrl: null,
