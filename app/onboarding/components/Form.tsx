@@ -8,7 +8,7 @@ interface InputFormData {
   name: string;
   major?: string;
   college?: string;
-  skills: string;
+  skills?: string;
   hackathons: number;
   github: string;
   linkedin: string;
@@ -27,9 +27,15 @@ const Form = () => {
   const onSubmit = async (data: InputFormData) => {
     if (!user) return;
     await updateDoc(doc(db, Collections.users, user.uid), {
+      email: data.email,
       linkedinUrl: data.linkedin,
       githubProfileUrl: data.github,
       devpostProfileUrl: data.devpost,
+      major: data.major,
+      college: data.college,
+      currentHackathon: data.currentHackathon,
+      skills: data.skills, 
+      hackathons: data.hackathons,
     });
   };
 
