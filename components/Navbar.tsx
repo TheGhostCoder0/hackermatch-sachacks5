@@ -15,7 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
 
   return (
     <div>
-      <header className="flex justify-between p-4 bg-black">
+      <header className="flex justify-between p-5 bg-black">
         {/* Only show the profile button if the user is signed in */}
         {user && (
           <button
@@ -35,10 +35,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
             </Link>
           ) : (
             // If the user is signed out, make the logo clickable but redirect to login instead of home
-            <div
-              onClick={() => router.push("/login")}
-              style={{ cursor: "pointer" }}
-            >
+            <div onClick={() => router.push("/")} style={{ cursor: "pointer" }}>
               <Image src={logo} alt="HackerMatch" width={350} height={80} />
             </div>
           )}
@@ -50,6 +47,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
               onClick={async () => {
                 if (auth.currentUser) {
                   await auth.signOut();
+                  router.push("/login");
                 }
               }}
             >
@@ -59,11 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
         ) : (
           <button
             onClick={async () => {
-              if (user) {
-                router.push("/home");
-              } else {
-                router.push("/");
-              }
+              router.push("/login");
             }}
             className="text-h5 bg-hacker-green text-white rounded-md hover:scale-110 transition duration-200 ease-in-out px-4 py-2"
           >
