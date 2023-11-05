@@ -1,4 +1,4 @@
-import { Collections, auth, db } from "@/app/firebase/client";
+import { Collections, ConversationType, auth, db } from "@/app/firebase/client";
 import {
   FirestoreDataConverter,
   addDoc,
@@ -59,6 +59,7 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
               onClick={() => {
                 // add to dms
                 addDoc(collection(db, Collections.conversations), {
+                  type: ConversationType.dm,
                   participants: [user?.uid, idxUser.uid],
                   names: [user?.displayName, idxUser.displayName],
                 });

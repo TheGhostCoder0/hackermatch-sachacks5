@@ -1,56 +1,31 @@
 import { Collections, ConversationType, auth, db } from "@/app/firebase/client";
-import {
-  FirestoreDataConverter,
-  collection,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, query, where } from "firebase/firestore";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { State } from "../page";
+import { convosConverter } from "./DMList";
 
-export const convosConverter: FirestoreDataConverter<any> = {
-  toFirestore: (data: any) => data,
-  fromFirestore: (snapshots, options) => {
-    const data = snapshots.data(options);
-
-    return {
-      id: snapshots.id,
-      ...data,
-    };
-  },
-};
-
-interface DMListProps {
+interface GroupListProps {
   setState: (state: State) => void;
   setConvoId: (id: string) => void;
   setName: (name: string) => void;
 }
 
-const getName = (names: string[], userName: string) => {
-  let name = "";
-  for (let i = 0; i < names.length; i++) {
-    if (names[i] != userName) {
-      name = names[i];
-    }
-  }
-
-  return name;
-};
-
-export const DMList: React.FC<DMListProps> = ({
+export const GroupList: React.FC<GroupListProps> = ({
   setConvoId,
   setState,
   setName,
 }) => {
   const [user] = useAuthState(auth);
+
   const q = query(
     collection(db, Collections.conversations),
-    where("participants", "array-contains", user?.uid),
-    where("type", "==", ConversationType.dm)
-  ).withConverter(convosConverter);
 
+    // this doesn't work :(
+    where("participants", "array-contains", user?.uid),
+    where("type", "==", ConversationType.team)
+  ).withConverter(convosConverter);
   const [conversations, loading] = useCollectionData(q);
   if (!user) return <div>Not logged in</div>;
   if (loading) return <div>Loading...</div>;
@@ -63,14 +38,14 @@ export const DMList: React.FC<DMListProps> = ({
           <button
             className="border px-4 py-2 rounded"
             onClick={() => {
-              setName(getName(conversation.names, user?.displayName as string));
+              setName(conversation.name);
               setState(State.DirectMessage);
               setConvoId(conversation.id);
             }}
             key={conversation.id}
           >
-            {/* hopefully this doesn't break anything */}
-            {getName(conversation.names, user?.displayName as string)}
+            {/* team conversations have a name */}
+            {conversation.name}
           </button>
         );
       })}

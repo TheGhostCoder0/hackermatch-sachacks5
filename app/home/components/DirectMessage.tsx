@@ -1,11 +1,12 @@
 import { Collections, auth, db } from "@/app/firebase/client";
-import { addDoc, collection, query, where } from "firebase/firestore";
+import { addDoc, collection, orderBy, query, where } from "firebase/firestore";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 interface DirectMessageProps {
   convoId: string;
+  name: string;
 }
 
 const Msg: React.FC<{ isSender: boolean; content: string }> = ({
@@ -25,14 +26,18 @@ const Msg: React.FC<{ isSender: boolean; content: string }> = ({
   );
 };
 
-export const DirectMessage: React.FC<DirectMessageProps> = ({ convoId }) => {
+export const DirectMessage: React.FC<DirectMessageProps> = ({
+  convoId,
+  name,
+}) => {
   const [user] = useAuthState(auth);
   const [message, setMessage] = useState<string>("");
 
   // get all the messages in this convo
   const q = query(
     collection(db, Collections.messages),
-    where("convoId", "==", convoId)
+    where("convoId", "==", convoId),
+    orderBy("createdAt")
   );
   const [messages, loading] = useCollectionData(q);
 
@@ -41,12 +46,15 @@ export const DirectMessage: React.FC<DirectMessageProps> = ({ convoId }) => {
 
   return (
     <div className="flex flex-col">
+      <h1 className="font-bold text-3xl underline">{name}</h1>
+
       {/* messages */}
-      {messages.length == 0 && <div>You have no messages with this person</div>}
+      {messages.length == 0 && <div>You have no messages here</div>}
       <div>
         {messages.map((message) => {
           return (
             <Msg
+              key={message.id}
               isSender={message.senderId == user?.uid}
               content={message.content}
             />

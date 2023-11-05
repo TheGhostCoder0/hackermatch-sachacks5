@@ -7,6 +7,7 @@ import { auth } from "../firebase/client";
 import { DMList } from "./components/DMList";
 import { DirectMessage } from "./components/DirectMessage";
 import { FindTeammates } from "./components/FindTeammates";
+import { GroupList } from "./components/GroupList";
 
 export enum State {
   FindTeammates,
@@ -15,6 +16,7 @@ export enum State {
 
 export default function Home() {
   const [state, setState] = useState<State>(State.FindTeammates);
+  const [name, setName] = useState<string>("");
   const [convoId, setConvoId] = useState<string>("");
   const [showCreateTeamModal, setShowCreateTeamModal] = useState(false);
   const [user, authLoading] = useAuthState(auth);
@@ -47,7 +49,7 @@ export default function Home() {
         </div>
 
         <h1 className="text-xl font-bold mt-4 mb-2">Teams</h1>
-        <div>
+        <div className="mb-2">
           <button
             onClick={() => setShowCreateTeamModal(true)}
             className="text-xl bg-blue-500 text-white rounded-md hover:scale-110 transition duration-200 ease-in-out px-4 py-2"
@@ -61,10 +63,21 @@ export default function Home() {
             onClose={() => setShowCreateTeamModal(false)}
           />
         )}
+        {user && !authLoading && (
+          <GroupList
+            setConvoId={setConvoId}
+            setState={setState}
+            setName={setName}
+          />
+        )}
 
         <h1 className="text-xl font-bold mt-4 mb-2">Direct Messages</h1>
         {user && !authLoading && (
-          <DMList setConvoId={setConvoId} setState={setState} />
+          <DMList
+            setConvoId={setConvoId}
+            setState={setState}
+            setName={setName}
+          />
         )}
       </div>
 
@@ -77,7 +90,7 @@ export default function Home() {
               <FindTeammates />
             </>
           ) : (
-            <DirectMessage convoId={convoId} />
+            <DirectMessage name={name} convoId={convoId} />
           )}
         </div>
       )}
