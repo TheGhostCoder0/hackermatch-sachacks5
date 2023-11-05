@@ -42,6 +42,20 @@ export default function Profile({ params }: { params: { uid: string } }) {
     return <div>No user data available.</div>;
   }
 
+  const renderColoredName = (name: string) => {
+    const words = name.split(" ");
+    return (
+      <>
+        <span style={{ color: '#00A651' }}>{words[0]+"_"}</span>
+        {words.length > 1 && (
+          <>
+            <span style={{ color: '#EC008C' }}>{words.slice(1).join("")}</span>
+          </>
+        )}
+      </>
+    );
+  };
+
   return (
     <div className="container mx-auto px-8 lg:px-20 py-10">
       <div className="flex flex-wrap -mx-4">
@@ -64,17 +78,17 @@ export default function Profile({ params }: { params: { uid: string } }) {
           <div className="bg-white p-4 rounded-lg shadow mb-6 w-full text-center">
             <h3 className="text-lg font-semibold mb-2">Biography</h3>
             {/* Insert user biography if available */}
-            <p className="text-gray-700">
+            <p className="text-black">
               {user.biography || "This user has not provided a biography."}
             </p>
           </div>
           {/* Links */}
-          <dl>
+          <dl className="bg-black p-4">
             {user.linkedinUrl && (
               <dd className="mb-1">
                 <a
                   href={user.linkedinUrl}
-                  className="flex justify-between items-center text-blue-500 hover:text-blue-600"
+                  className="flex justify-between items-center text-slate-200 hover:text-white"
                 >
                   <span className="mr-2">LinkedIn </span>
                   <AiFillLinkedin />
@@ -85,7 +99,7 @@ export default function Profile({ params }: { params: { uid: string } }) {
               <dd className="mb-1">
                 <a
                   href={user.githubProfileUrl}
-                  className="flex justify-between items-center text-blue-500 hover:text-blue-600"
+                  className="flex justify-between items-center text-slate-200 hover:text-white"
                 >
                   <span className="mr-2">GitHub</span>
                   <AiFillGithub />
@@ -96,7 +110,7 @@ export default function Profile({ params }: { params: { uid: string } }) {
               <dd className="mb-1">
                 <a
                   href={user.devpostProfileUrl}
-                  className="flex justify-between items-center text-blue-500 hover:text-blue-600"
+                  className="flex justify-between items-center text-slate-200 hover:text-white"
                 >
                   <span className="mr-2">Devpost </span>
                   <SiDevpost />
@@ -112,31 +126,33 @@ export default function Profile({ params }: { params: { uid: string } }) {
           <div className="flex flex-col justify-start h-full">
             {/* Name and Location, etc. */}
             <div className="mb-6 text-center lg:text-left lg:mb-10 lg:mt-8">
-              <h1 className="text-6xl font-bold text-gray-900 mb-4 lg:mb-1">
-                {user.displayName || "Name not provided"}
+              <h1 className="text-6xl font-bold mb-4 lg:mb-1">
+                {user.displayName
+                  ? renderColoredName(user.displayName)
+                  : "Name not provided"}
               </h1>
               {/* User location and other information could go here */}
-              <p className="text-xl text-gray-600 mt-10 lg:mt-6">
+              <p className="text-l text-black mt-10 lg:mt-6">
                 {user.location || "Location not provided"} |{" "}
                 {user.college || "College not provided."} |{" "}
                 {user.major || "Major not provided"}
               </p>
             </div>
             {/* Relevant Information as List Group, adjusted to align with the Biography */}
-            <div className="bg-white p-4 rounded-lg shadow space-y-3 mt-0">
+            <div className="bg-black p-4 rounded-lg shadow space-y-3 mt-0">
               {" "}
               {/* Remove the top margin */}
-              <h3 className="text-lg font-semibold mb-2">
+              <h3 className="text-lg font-semibold text-white mb-2">
                 Relevant Information
               </h3>
               <div className="bg-gray-100 p-4 rounded-md">
-                <h4 className="font-semibold text-gray-700">
+                <h4 className="font-semibold text-black">
                   Hackathons Attended
                 </h4>
-                <p className="text-gray-600">{user.hackathons || "0"}</p>
+                <p className="text-black">{user.hackathons || "0"}</p>
               </div>
               <div className="bg-gray-100 p-4 rounded-md">
-                <h4 className="font-semibold text-gray-700">
+                <h4 className="font-semibold text-black">
                   Current Hackathon
                 </h4>
                 <p className="text-gray-600">
@@ -144,8 +160,8 @@ export default function Profile({ params }: { params: { uid: string } }) {
                 </p>
               </div>
               <div className="bg-gray-100 p-4 rounded-md">
-                <h4 className="font-semibold text-gray-700">Skills</h4>
-                <p className="text-gray-600">
+                <h4 className="font-semibold text-black">Skills</h4>
+                <p className="text-black">
                   {user.skills || "No skills provided"}
                 </p>
               </div>
