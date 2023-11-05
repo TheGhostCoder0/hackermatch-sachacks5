@@ -22,7 +22,59 @@ export default function Profile({ params }: { params: { uid: string } }) {
   const user = users?.[0] as any;
 
   if (loadingUsers) {
-    return <div>Loading...</div>;
+    return (
+      <div className="container mx-auto px-8 lg:px-20 py-10 animate-pulse">
+        <div className="flex flex-wrap -mx-4">
+          {/* Profile Column */}
+          <div className="w-full lg:w-1/3 px-4 flex flex-col items-center">
+            {/* Profile Picture Skeleton */}
+            <div className="mb-6 rounded-full bg-gray-300 h-40 w-40"></div>
+
+            {/* Biography Skeleton */}
+            <div className="bg-white p-4 rounded-lg shadow mb-6 w-full text-center">
+              <div className="h-6 bg-gray-300 w-3/4 mb-2"></div>
+              <div className="h-4 bg-gray-200 w-full"></div>
+            </div>
+
+            {/* Links Skeleton */}
+            <div className="bg-black p-4 rounded-lg shadow mb-6 w-full">
+              <div className="h-4 bg-gray-700 mb-1 w-3/4"></div>
+              <div className="h-4 bg-gray-700 mb-1 w-3/4"></div>
+              <div className="h-4 bg-gray-700 mb-1 w-3/4"></div>
+            </div>
+          </div>
+
+          {/* Information Column */}
+          <div className="w-full lg:w-2/3 px-4">
+            <div className="flex flex-col justify-start h-full">
+              {/* Name and Location Skeleton */}
+              <div className="mb-6 text-center lg:text-left lg:mb-10 lg:mt-8">
+                <div className="h-16 bg-gray-300 w-3/4 mb-4 lg:mb-1"></div>
+                <div className="h-4 bg-gray-200 w-full mt-10 lg:mt-6"></div>
+              </div>
+
+              {/* Relevant Information Skeleton */}
+              <div className="bg-black p-4 rounded-lg shadow space-y-3 mt-0">
+                <div className="h-6 bg-gray-700 w-3/4 mb-2"></div>
+                <div className="bg-gray-100 p-4 rounded-md">
+                  <div className="h-4 bg-gray-300 mb-2"></div>
+                  <div className="h-4 bg-gray-200 w-5/6"></div>
+                </div>
+                <div className="bg-gray-100 p-4 rounded-md">
+                  <div className="h-4 bg-gray-300 mb-2"></div>
+                  <div className="h-4 bg-gray-200 w-5/6"></div>
+                </div>
+                <div className="bg-gray-100 p-4 rounded-md">
+                  <div className="h-4 bg-gray-300 mb-2"></div>
+                  <div className="h-4 bg-gray-200 w-5/6"></div>
+                </div>
+                {/* ... Repeat for additional information ... */}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (error) {

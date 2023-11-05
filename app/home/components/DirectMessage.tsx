@@ -48,7 +48,48 @@ export const DirectMessage: React.FC<DirectMessageProps> = ({
   ).withConverter(addIdConverter);
   const [messages, loading] = useCollectionData(q);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div
+        className="flex flex-col bg-black animate-pulse"
+        style={{ height: "calc(100vh - 140px)" }}
+      >
+        <div className="flex-none">
+          {/* Top Bar Skeleton */}
+          <div className="flex items-center p-4">
+            <div className="bg-gray-300 p-4 rounded-md shadow flex justify-center items-center">
+              <div className="h-8 bg-gray-200 w-48"></div>
+            </div>
+            {/* Conditional button skeleton */}
+            {conversationType == ConversationType.dm && (
+              <div className="ml-6 h-10 bg-gray-200 rounded-md w-32"></div>
+            )}
+          </div>
+          {conversationType == ConversationType.team && (
+            <div
+              className="bg-gray-300 h-6 mb-2 rounded-md shadow flex justify-center items-center ml-4"
+              style={{ maxWidth: "fit-content", width: "20%" }}
+            ></div>
+          )}
+        </div>
+
+        {/* Messages Container Skeleton */}
+        <div className="flex-1 overflow-auto p-4">
+          <div className="text-white">
+            {/* We can just have a div with a set height to mimic the space that messages would take up */}
+            <div className="h-64 bg-gray-700 rounded-md"></div>
+          </div>
+        </div>
+
+        {/* Message Input Skeleton */}
+        <div className="flex-none p-4">
+          <div className="flex items-stretch bg-gray-200 border border-gray-300 text-gray-700 text-sm rounded-lg w-full">
+            <div className="flex-1 p-2.5 bg-transparent border-none outline-none"></div>
+            <div className="bg-gray-200 p-2.5 rounded-r-lg"></div>
+          </div>
+        </div>
+      </div>
+    );
   if (!messages) return <div>Broken somehow lol</div>;
 
   const otherPersonsId = conversation.participants.filter(

@@ -48,7 +48,7 @@ export default function Home() {
         <div className="px-2">
           <button
             onClick={() => setState(State.FindTeammates)}
-            className="text-xl bg-white text-black rounded-md hover:bg-match-pink hover:text-white transition duration-200 ease-in-out px-3 py-3 my-1 w-full"
+            className="text-xl bg-white text-black rounded-md hover:bg-match-pink hover:text-white transition duration-200 ease-in-out px-3 py-3 my-1 mt-2 w-full"
           >
             Find Teammates
           </button>
