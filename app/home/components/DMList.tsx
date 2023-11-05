@@ -27,6 +27,17 @@ interface DMListProps {
   setConvoId: (id: string) => void;
 }
 
+const getName = (names: string[], userName: string) => {
+  let name = "";
+  for (let i = 0; i < names.length; i++) {
+    if (names[i] != userName) {
+      name = names[i];
+    }
+  }
+
+  return name;
+};
+
 export const DMList: React.FC<DMListProps> = ({ setConvoId, setState }) => {
   const [user] = useAuthState(auth);
   const q = query(
@@ -35,19 +46,9 @@ export const DMList: React.FC<DMListProps> = ({ setConvoId, setState }) => {
   ).withConverter(convosConverter);
 
   const [conversations, loading] = useCollectionData(q);
+  if (!user) return <div>Not logged in</div>;
   if (loading) return <div>Loading...</div>;
-
   if (!conversations) return <div>You have no DMs :(</div>;
-
-  // get the other person's name
-  let name = "";
-  for (let i = 0; i < conversations.length; i++) {
-    if (conversations[i].participants[0] == user?.uid) {
-      name = conversations[i].names[1];
-    } else {
-      name = conversations[i].names[0];
-    }
-  }
 
   return (
     <div>
@@ -61,7 +62,8 @@ export const DMList: React.FC<DMListProps> = ({ setConvoId, setState }) => {
             }}
             key={conversation.id}
           >
-            {name}
+            {/* hopefully this doesn't break anything */}
+            {getName(conversation.names, user?.displayName as string)}
           </button>
         );
       })}

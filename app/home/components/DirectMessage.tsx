@@ -33,6 +33,10 @@ export const DirectMessage: React.FC<DirectMessageProps> = ({ convoId }) => {
   const q = query(
     collection(db, Collections.messages),
     where("convoId", "==", convoId)
+
+    // F: having this requires creating an index in firebase
+    // check on this later
+    // orderBy("createdAt")
   );
   const [messages, loading] = useCollectionData(q);
 
