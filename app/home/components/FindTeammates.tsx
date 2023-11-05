@@ -3,18 +3,18 @@ import {
   FirestoreDataConverter,
   addDoc,
   collection,
+  getDocs,
   limit,
   query,
   where,
-  getDocs,
 } from "firebase/firestore";
+import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { CgSpinner } from "react-icons/cg";
-import Image from "next/image";
-import Link from "next/link";
-import SearchBar from "@/app/home/components/SearchBar";
+import { toast } from "react-toastify";
 
 interface FindTeammatesProps {}
 
@@ -106,11 +106,12 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
 
       if (!existingConversation) {
         // If conversation does not exist, create it
-        const docRef = await addDoc(collection(db, Collections.conversations), {
+        await addDoc(collection(db, Collections.conversations), {
           type: ConversationType.dm,
           participants: [user.uid, idxUser.uid],
           names: [user.displayName, idxUser.displayName],
         });
+        toast.success("Started a conversation with this person!");
       }
       // Update the index after handling the conversation
       setIndex(index + 1);

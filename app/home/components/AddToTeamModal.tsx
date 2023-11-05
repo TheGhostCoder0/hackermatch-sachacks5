@@ -59,13 +59,18 @@ export const AddToTeamModal: React.FC<AddToTeamModalProps> = ({
       />
       <button
         onClick={() => {
+          if (!value) {
+            toast.error("Please select a team");
+            return;
+          }
+
           // add this person to this conversation
           const convoId = value?.value;
           updateDoc(doc(db, Collections.conversations, convoId), {
             participants: arrayUnion(otherPersonsId),
             names: arrayUnion(name),
           });
-          toast.success(`Added ${name} to team!`);
+          toast.success(`Added ${name} to ${value?.label}!`);
           onClose();
         }}
         className="text-lg bg-hacker-green hover:bg-match-pink text-white rounded-md hover:scale-110 transition duration-200 ease-in-out px-4 py-2"

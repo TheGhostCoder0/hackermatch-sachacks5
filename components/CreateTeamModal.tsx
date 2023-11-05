@@ -2,6 +2,7 @@ import { Collections, ConversationType, auth, db } from "@/app/firebase/client";
 import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
 import { Modal } from "./Modal";
 
 interface CreateTeamModalProps {
@@ -28,6 +29,11 @@ export const CreateTeamModal: React.FC<CreateTeamModalProps> = ({
 
       <button
         onClick={() => {
+          if (teamName.length < 1) {
+            toast.error("Team name can't be empty");
+            return;
+          }
+
           // teams have a set name
           addDoc(collection(db, Collections.conversations), {
             name: teamName,
@@ -36,6 +42,7 @@ export const CreateTeamModal: React.FC<CreateTeamModalProps> = ({
             participants: [user?.uid],
             creatorUid: user?.uid,
           });
+          toast.success("Team created!");
           onClose();
         }}
         className="text-lg bg-hacker-green hover:bg-match-pink text-white rounded-md transition duration-200 px-4 py-2"
