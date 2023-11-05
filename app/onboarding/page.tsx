@@ -13,7 +13,7 @@ export default function Onboarding() {
     if (!user && !authLoading) {
       router.push("/login");
     }
-  }, []);
+  }, [user, authLoading, router]);
 
   return (
     <div>
