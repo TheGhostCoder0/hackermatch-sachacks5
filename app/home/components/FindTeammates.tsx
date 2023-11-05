@@ -139,7 +139,7 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
               ) : (
                 <div className="flex flex-col items-start w-full ml-20">
                   {/* special */}
-                  {idxUser.displayName == "Kyle Yu" && (
+                  {/* {idxUser.displayName == "Kyle Yu" && (
                     <div>
                       <div className="flex justify-center text-hacker-green">
                         this Kyle guy sounds really cool, you should definitely
@@ -148,7 +148,7 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
 
                       <img src="/konata.gif" width={128} className="mb-8" />
                     </div>
-                  )}
+                  )} */}
                   {/* Align items to start and add left margin */}
                   <div className="flex items-center mb-4 w-full">
                     <Image
@@ -195,7 +195,8 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
         {/* No button on the right */}
         <button
           onClick={() => {
-            if (idxUser.displayName == "Kyle Yu") toast.error(":(");
+            // special
+            // if (idxUser.displayName == "Kyle Yu") toast.error(":(");
 
             setIndex(index + 1);
           }}
