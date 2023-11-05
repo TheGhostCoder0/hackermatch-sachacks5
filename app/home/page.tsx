@@ -16,7 +16,7 @@ export enum State {
 
 export default function Home() {
   const [state, setState] = useState<State>(State.FindTeammates);
-  const [name, setName] = useState<string>("");
+  const [name, setName] = useState<string>(""); // name of the team (doesn't do anything for DMs)
   const [showCreateTeamModal, setShowCreateTeamModal] = useState(false);
   const [groupMemberList, setGroupMemberList] = useState<string>("");
   const [conversation, setConversation] = useState<any>();

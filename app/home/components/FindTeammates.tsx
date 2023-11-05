@@ -138,7 +138,17 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
                 <CgSpinner className="animate-spin" />
               ) : (
                 <div className="flex flex-col items-start w-full ml-20">
-                  {" "}
+                  {/* special */}
+                  {idxUser.displayName == "Kyle Yu" && (
+                    <div>
+                      <div className="flex justify-center text-hacker-green">
+                        this Kyle guy sounds really cool, you should definitely
+                        add him!
+                      </div>
+
+                      <img src="/konata.gif" width={128} className="mb-8" />
+                    </div>
+                  )}
                   {/* Align items to start and add left margin */}
                   <div className="flex items-center mb-4 w-full">
                     <Image
@@ -184,7 +194,11 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
 
         {/* No button on the right */}
         <button
-          onClick={() => setIndex(index + 1)}
+          onClick={() => {
+            if (idxUser.displayName == "Kyle Yu") toast.error(":(");
+
+            setIndex(index + 1);
+          }}
           className="bg-match-pink text-white font-bold text-lg rounded-full flex items-center justify-center"
           style={{ width: "80px", height: "80px", lineHeight: "80px" }} // Force the button to be circular with specific size
         >
