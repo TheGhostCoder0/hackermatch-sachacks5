@@ -10,21 +10,40 @@ import { useAuthState } from "react-firebase-hooks/auth";
 interface NavbarProps {}
 
 export const Navbar: React.FC<NavbarProps> = ({}) => {
-  const [user] = useAuthState(auth)
+  const [user] = useAuthState(auth);
   const router = useRouter();
 
   return (
     <div>
       <header className="flex justify-between p-4 bg-black">
-        {/* Go to profile */}
-        <button className=" text-white hover:bg-match-pink pd-1" onClick={() => {
-          router.push(`/profile/${user?.uid}`)
-        }}>{" "} Profile {" "}</button>
+        {/* Only show the profile button if the user is signed in */}
+        {user && (
+          <button
+            className="text-white hover:bg-match-pink pd-1"
+            onClick={() => {
+              router.push(`/profile/${user.uid}`);
+            }}
+          >
+            {" "}
+            Profile{" "}
+          </button>
+        )}
         <div className="flex-1 flex justify-center ml-10">
           {" "}
-          <Link href="/home" passHref>
-            <Image src={logo} alt="HackerMatch" width={350} />
-          </Link>
+          {user ? (
+            // If the user is signed in, keep the logo as a link to home
+            <Link href="/home" passHref>
+              <Image src={logo} alt="HackerMatch" width={350} height={80} />
+            </Link>
+          ) : (
+            // If the user is signed out, make the logo clickable but redirect to login instead of home
+            <div
+              onClick={() => router.push("/login")}
+              style={{ cursor: "pointer" }}
+            >
+              <Image src={logo} alt="HackerMatch" width={350} height={80} />
+            </div>
+          )}
         </div>
         {user ? (
           <div>

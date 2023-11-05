@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { CgSpinner } from "react-icons/cg";
+import Image from "next/image";
 
 interface FindTeammatesProps {}
 
@@ -48,9 +49,11 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
         <CgSpinner className="animate-spin" />
       ) : (
         <div className="flex flex-col">
-          <img
+          <Image
             src={idxUser.photoUrl}
             alt={idxUser.displayName}
+            width={100}
+            height={100}
             className="rounded-full h-24 w-24"
           />
           {idxUser.displayName}
@@ -65,13 +68,13 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
                 });
                 setIndex(index + 1);
               }}
-              className="bg-green-500 py-2 px-4 rounded mr-2"
+              className="bg-hacker-green py-2 px-4 rounded mr-2"
             >
               Yes
             </button>
             <button
               onClick={() => setIndex(index + 1)}
-              className="bg-red-500 py-2 px-4 rounded"
+              className="bg-match-pink py-2 px-4 rounded"
             >
               No
             </button>

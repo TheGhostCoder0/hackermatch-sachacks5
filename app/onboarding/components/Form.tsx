@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useRouter } from "next/navigation";
 import { Collections, auth, db } from "../../firebase/client";
 
 interface InputFormData {
@@ -20,6 +21,7 @@ interface InputFormData {
 
 const Form = () => {
   const [user, authLoading] = useAuthState(auth);
+  const router = useRouter();
 
   const { register, handleSubmit } = useForm<InputFormData>({
     mode: "onChange",
@@ -35,9 +37,10 @@ const Form = () => {
       major: data.major,
       college: data.college,
       currentHackathon: data.currentHackathon,
-      skills: data.skills, 
+      skills: data.skills,
       hackathons: data.hackathons,
     });
+    router.push("/home");
   };
 
   return (
@@ -217,7 +220,6 @@ const Form = () => {
             placeholder="Sacramento"
           />
         </div>
-
 
         <div className="pt-5">
           <button
