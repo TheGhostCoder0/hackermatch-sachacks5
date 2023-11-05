@@ -76,7 +76,7 @@ export default function Profile({ params }: { params: { uid: string } }) {
           </div>
           {/* Links */}
           <dl className="bg-black p-4 rounded-lg shadow mb-6 w-full">
-            {user.linkedinUrl && (
+            {user.linkedinUrl ? (
               <dd className="mb-1">
                 <a
                   href={user.linkedinUrl}
@@ -86,8 +86,10 @@ export default function Profile({ params }: { params: { uid: string } }) {
                   <AiFillLinkedin />
                 </a>
               </dd>
+            ) : (
+              <dd className="mb-1 text-slate-400">No LinkedIn included</dd>
             )}
-            {user.githubProfileUrl && (
+            {user.githubProfileUrl ? (
               <dd className="mb-1">
                 <a
                   href={user.githubProfileUrl}
@@ -97,8 +99,10 @@ export default function Profile({ params }: { params: { uid: string } }) {
                   <AiFillGithub />
                 </a>
               </dd>
+            ) : (
+              <dd className="mb-1 text-slate-400">No GitHub included</dd>
             )}
-            {user.devpostProfileUrl && (
+            {user.devpostProfileUrl ? (
               <dd className="mb-1">
                 <a
                   href={user.devpostProfileUrl}
@@ -108,6 +112,8 @@ export default function Profile({ params }: { params: { uid: string } }) {
                   <SiDevpost />
                 </a>
               </dd>
+            ) : (
+              <dd className="mb-1 text-slate-400">No Devpost included</dd>
             )}
           </dl>
         </div>
