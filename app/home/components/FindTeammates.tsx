@@ -6,6 +6,7 @@ import {
   limit,
   query,
   where,
+  getDocs,
 } from "firebase/firestore";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -67,19 +68,59 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
     );
   };
 
+  // Function to check for an existing conversation
+  const checkForExistingConversation = async (
+    currentUserUid: any,
+    targetUserUid: any
+  ) => {
+    const conversationsRef = collection(db, Collections.conversations);
+
+    // You need to check both possible orders of user IDs
+    const q1 = query(
+      conversationsRef,
+      where("participants", "==", [currentUserUid, targetUserUid])
+    );
+    const q2 = query(
+      conversationsRef,
+      where("participants", "==", [targetUserUid, currentUserUid])
+    );
+
+    const querySnapshot1 = await getDocs(q1);
+    const querySnapshot2 = await getDocs(q2);
+
+    // If a conversation is found, return the first match
+    const existingConversation =
+      querySnapshot1.docs[0]?.data() || querySnapshot2.docs[0]?.data();
+
+    return existingConversation;
+  };
+
+  // Refactor the onClick event for the Yes button
+  const handleCreateOrNavigateToConversation = async () => {
+    if (user && idxUser) {
+      const existingConversation = await checkForExistingConversation(
+        user.uid,
+        idxUser.uid
+      );
+
+      if (!existingConversation) {
+        // If conversation does not exist, create it
+        const docRef = await addDoc(collection(db, Collections.conversations), {
+          type: ConversationType.dm,
+          participants: [user.uid, idxUser.uid],
+          names: [user.displayName, idxUser.displayName],
+        });
+      }
+      // Update the index after handling the conversation
+      setIndex(index + 1);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center mt-4">
       {/* Yes button on the left */}
       <button
-        onClick={() => {
-          // add to dms
-          addDoc(collection(db, Collections.conversations), {
-            type: ConversationType.dm,
-            participants: [user?.uid, idxUser.uid],
-            names: [user?.displayName, idxUser.displayName],
-          });
-          setIndex(index + 1);
-        }}
+        onClick={handleCreateOrNavigateToConversation}
         className="bg-hacker-green text-white font-bold text-lg rounded-full flex items-center justify-center"
         style={{ width: "80px", height: "80px", lineHeight: "80px" }} // Force the button to be circular with specific size
       >
