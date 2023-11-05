@@ -168,7 +168,7 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
                     target="_blank"
                     className="text-blue-500 underline flex items-center"
                   >
-                    Profile
+                    View Profile
                     <BiLinkExternal className="ml-2" />
                   </Link>
                 </div>
