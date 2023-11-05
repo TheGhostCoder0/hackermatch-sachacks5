@@ -13,6 +13,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import { BiLinkExternal } from "react-icons/bi";
 import { CgSpinner } from "react-icons/cg";
 import { toast } from "react-toastify";
 
@@ -131,15 +132,13 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
         </button>
 
         {/* Black box container */}
-        <a className="flex flex-col bg-black p-4 rounded-md shadow-lg mx-6 my-4 w-full md:w-5/6 lg:w-3/4 xl:w-2/3 cursor-pointer">
-          <Link href={`/profile/${idxUser.uid}`}>
-            <div className="flex flex-col bg-black p-4 rounded-md shadow-lg mx-6 my-4 w-full md:w-5/6 lg:w-3/4 xl:w-2/3">
-              {loading ? (
-                <CgSpinner className="animate-spin" />
-              ) : (
-                <div className="flex flex-col items-start w-full ml-20">
-                  {/* special */}
-                  {/* {idxUser.displayName == "Kyle Yu" && (
+        <div className="flex flex-col bg-black p-4 rounded-md shadow-lg mx-6 my-4 w-full md:w-5/6 lg:w-3/4 xl:w-2/3">
+          {loading ? (
+            <CgSpinner className="animate-spin" />
+          ) : (
+            <div className="flex flex-col items-start w-full ml-20">
+              {/* special */}
+              {/* {idxUser.displayName == "Kyle Yu" && (
                     <div>
                       <div className="flex justify-center text-hacker-green">
                         this Kyle guy sounds really cool, you should definitely
@@ -149,48 +148,54 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
                       <img src="/konata.gif" width={128} className="mb-8" />
                     </div>
                   )} */}
-                  {/* Align items to start and add left margin */}
-                  <div className="flex items-center mb-4 w-full">
-                    <Image
-                      src={idxUser.photoUrl || "default-avatar.png"}
-                      alt={idxUser.displayName || "User"}
-                      width={120}
-                      height={120}
-                      className="rounded-full"
-                    />
-                    <h1 className="text-3xl font-bold text-white ml-12">
-                      {idxUser.displayName
-                        ? renderColoredName(idxUser.displayName)
-                        : "Name not provided"}
-                    </h1>
-                  </div>
-                  <div className="mt-3 w-full">
-                    <ul className="list-disc space-y-2 text-white pl-5 mb-6">
-                      <li>
-                        Location: {idxUser.location || "Location not provided"}
-                      </li>
-                      <li>
-                        College: {idxUser.college || "College not provided"}
-                      </li>
-                      <li>Major: {idxUser.major || "Major not provided"}</li>
-                      <li className="text-white">
-                        Skills: {idxUser.skills || "No skills provided"}
-                      </li>
-                      <li>
-                        Number of hackathons:{" "}
-                        {idxUser.hackathons || "Not specified"}
-                      </li>
-                      <li>
-                        Current Hackathon:{" "}
-                        {idxUser.currentHackathon || "Not participating"}
-                      </li>
-                    </ul>
-                  </div>
+              {/* Align items to start and add left margin */}
+              <div className="flex items-center mb-4 w-full">
+                <Image
+                  src={idxUser.photoUrl || "default-avatar.png"}
+                  alt={idxUser.displayName || "User"}
+                  width={120}
+                  height={120}
+                  className="rounded-full"
+                />
+                <div className="ml-8">
+                  <h1 className="text-3xl font-bold text-white">
+                    {idxUser.displayName
+                      ? renderColoredName(idxUser.displayName)
+                      : "Name not provided"}
+                  </h1>
+                  <Link
+                    href={`/profile/${idxUser.uid}`}
+                    target="_blank"
+                    className="text-blue-500 underline flex items-center"
+                  >
+                    Profile
+                    <BiLinkExternal className="ml-2" />
+                  </Link>
                 </div>
-              )}
+              </div>
+              <div className="mt-3 w-full">
+                <ul className="list-disc space-y-2 text-white pl-5 mb-6">
+                  <li>
+                    Location: {idxUser.location || "Location not provided"}
+                  </li>
+                  <li>College: {idxUser.college || "College not provided"}</li>
+                  <li>Major: {idxUser.major || "Major not provided"}</li>
+                  <li className="text-white">
+                    Skills: {idxUser.skills || "No skills provided"}
+                  </li>
+                  <li>
+                    Number of hackathons:{" "}
+                    {idxUser.hackathons || "Not specified"}
+                  </li>
+                  <li>
+                    Current Hackathon:{" "}
+                    {idxUser.currentHackathon || "Not participating"}
+                  </li>
+                </ul>
+              </div>
             </div>
-          </Link>
-        </a>
+          )}
+        </div>
 
         {/* No button on the right */}
         <button

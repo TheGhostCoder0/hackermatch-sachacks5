@@ -1,8 +1,7 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { doc, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useForm } from "react-hook-form";
 import { Collections, auth, db } from "../../firebase/client";
 
 interface InputFormData {
@@ -39,6 +38,7 @@ const Form = () => {
       currentHackathon: data.currentHackathon,
       skills: data.skills,
       hackathons: data.hackathons,
+      location: data.location,
     });
     router.push("/home");
   };
@@ -54,7 +54,7 @@ const Form = () => {
         }}
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
+          {/* <div>
             <label
               htmlFor="name"
               className="block text-sm font-medium text-hacker-green"
@@ -74,7 +74,7 @@ const Form = () => {
               }}
               placeholder="John Smith"
             />
-          </div>
+          </div> */}
           <div>
             <label
               htmlFor="email"

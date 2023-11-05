@@ -1,10 +1,9 @@
 "use client";
-import { useFirestore } from "@/app/firebase/FirestoreContext";
 import { auth } from "@/app/firebase/client";
+import logo from "@/public/logo.png";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import logo from "@/public/logo.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 interface NavbarProps {}
@@ -18,14 +17,12 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
       <header className="flex justify-between p-5 bg-black">
         {/* Only show the profile button if the user is signed in */}
         {user && (
-          <button
+          <Link
             className="text-white bg-transparent hover:bg-match-pink py-2 px-4 rounded transition duration-200 ease-in-out"
-            onClick={() => {
-              router.push(`/profile/${user.uid}`);
-            }}
+            href={`/profile/${user.uid}`}
           >
             Profile
-          </button>
+          </Link>
         )}
         <div className="flex-1 flex justify-center ml-10">
           {user ? (
