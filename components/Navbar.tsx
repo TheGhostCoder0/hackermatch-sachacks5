@@ -62,7 +62,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
               if (user) {
                 router.push("/home");
               } else {
-                router.push("/login");
+                router.push("/");
               }
             }}
             className="text-h5 bg-hacker-green text-white rounded-md hover:scale-110 transition duration-200 ease-in-out px-4 py-2"
