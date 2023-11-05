@@ -55,6 +55,9 @@ cd hackermatch-sachacks5.git
 
 # Install npm packages for frontend
 npm install
+
+# Create a .env.local file and set up your Firebase keys
+
 ```
 
 ## Usage
