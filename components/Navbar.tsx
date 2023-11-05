@@ -24,12 +24,10 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
               router.push(`/profile/${user.uid}`);
             }}
           >
-            {" "}
-            Profile{" "}
+            Profile
           </button>
         )}
         <div className="flex-1 flex justify-center ml-10">
-          {" "}
           {user ? (
             // If the user is signed in, keep the logo as a link to home
             <Link href="/home" passHref>

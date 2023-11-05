@@ -37,9 +37,10 @@ export default function Profile({ params }: { params: { uid: string } }) {
     const words = name.split(" ");
     return (
       <>
-        <span className="text-hacker-green">{words[0] + "_"}</span>
+        <span className="text-hacker-green">{words[0]}</span>
         {words.length > 1 && (
           <>
+            <span className="text-hacker-green">{"_"}</span>
             <span className="text-match-pink">{words.slice(1).join("")}</span>
           </>
         )}
@@ -144,7 +145,7 @@ export default function Profile({ params }: { params: { uid: string } }) {
               </div>
               <div className="bg-gray-100 p-4 rounded-md">
                 <h4 className="font-semibold text-black">Current Hackathon</h4>
-                <p className="text-gray-600">
+                <p className="text-black">
                   {user.currentHackathon || "Not participating"}
                 </p>
               </div>

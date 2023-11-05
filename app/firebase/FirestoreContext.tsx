@@ -20,7 +20,7 @@ export const FirestoreProvider: React.FC<FirestoreContextProps> = ({
   const [authUser, authLoading] = useAuthState(auth);
 
   // fetch the user, currently getting everything rn which is fine ig
-  // use this if u want extended user info like name, role, photoUrl, etc.
+  // use this if u want extended user info like name, role, photoUrl, etc
   useEffect(() => {
     const q = query(
       collection(db, Collections.users),

@@ -109,7 +109,12 @@ export default function Home() {
         <div>
           {state == State.FindTeammates ? (
             <>
-              <h1 className="font-bold text-2xl mb-4">Find Teammates</h1>
+              <div className="flex justify-center bg-black p-4 rounded-md shadow-lg w-full md:w-5/6 lg:w-3/4 xl:w-2/3 mx-auto">
+                <h1 className="font-bold text-3xl text-white mb-2">
+                  Find Teammates
+                </h1>
+              </div>
+
               <FindTeammates />
             </>
           ) : (
