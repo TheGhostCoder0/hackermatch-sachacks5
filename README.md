@@ -38,19 +38,19 @@ These improvements may include:
 - Integration of real-time communication tools for team collaboration
 - More comprehensive project management system
 - User-friendly features for organizing hackathons
-- An algorithm to help you find your best hacker match
+- A machine learning algorithm to help you find your best hacker match each and every time
 
 We want Hacker Match to not only be a matchmaker for hackathon teams but also serve as a community hub where hackers can interact, share their progress, collaborate on projects, and receive updates on upcoming hackathons. Whether you're a seasoned hacker or a first-timer, Hacker Match helps you build the perfect team and enhance your hackathon experience.
 
 ## Installation
 
-Here are the steps to install and setup this project on your local machine:
+Here are the steps to install and set up this project on your local machine:
 
 ```bash
 # Clone the repo
 git clone https://github.com/TheGhostCoder0/hackermatch-sachacks5.git
 
-# Navigate to project directory
+# Navigate to the project directory
 cd hackermatch-sachacks5.git
 
 # Install npm packages for frontend
@@ -68,7 +68,7 @@ npm run dev
 
 ## Viewing on the Web
 
-The application is hosted on Vercel, a platform that enables developers to host websites and web services that deploy instantly, scale automatically, and requires no supervision, all with no configuration. You can view the live application by visiting the following URL:
+The application is hosted on Vercel, a platform that enables developers to host websites and web services that deploy instantly, scale automatically, and require no supervision, all with no configuration. You can view the live application by visiting the following URL:
 
 [https://hackermatch-sachacks5.vercel.app](https://hackermatch-sachacks5.vercel.app)
 
