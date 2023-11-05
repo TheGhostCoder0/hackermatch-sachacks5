@@ -2,6 +2,8 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { AiFillLinkedin, AiFillGithub } from "react-icons/ai";
+import { SiDevpost } from "react-icons/si";
 import {
   collection,
   doc,
@@ -67,26 +69,26 @@ export default function Profile({ params }: { params: { uid: string } }) {
             </p>
           </div>
           {/* Links */}
-          <dl className="bg-white p-4 rounded-lg shadow w-full text-center">
-            <dt className="font-semibold text-gray-700 mb-2">Links</dt>
-            {/* Conditional rendering of user links */}
+          <dl>
             {user.linkedinUrl && (
               <dd className="mb-1">
                 <a
                   href={user.linkedinUrl}
-                  className="text-blue-500 hover:text-blue-600"
+                  className="flex justify-between items-center text-blue-500 hover:text-blue-600"
                 >
-                  LinkedIn
+                  <span className="mr-2">LinkedIn </span>
+                  <AiFillLinkedin />
                 </a>
               </dd>
             )}
             {user.githubProfileUrl && (
-              <dd>
+              <dd className="mb-1">
                 <a
                   href={user.githubProfileUrl}
-                  className="text-blue-500 hover:text-blue-600"
+                  className="flex justify-between items-center text-blue-500 hover:text-blue-600"
                 >
-                  GitHub
+                  <span className="mr-2">GitHub</span>
+                  <AiFillGithub />
                 </a>
               </dd>
             )}
@@ -94,9 +96,10 @@ export default function Profile({ params }: { params: { uid: string } }) {
               <dd className="mb-1">
                 <a
                   href={user.devpostProfileUrl}
-                  className="text-blue-500 hover:text-blue-600"
+                  className="flex justify-between items-center text-blue-500 hover:text-blue-600"
                 >
-                  Devpost
+                  <span className="mr-2">Devpost </span>
+                  <SiDevpost />
                 </a>
               </dd>
             )}
