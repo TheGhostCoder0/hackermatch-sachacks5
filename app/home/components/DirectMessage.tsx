@@ -49,7 +49,7 @@ export const DirectMessage: React.FC<DirectMessageProps> = ({
       <h1 className="font-bold text-3xl underline">{name}</h1>
 
       {/* messages */}
-      {messages.length == 0 && <div>You have no messages with this person</div>}
+      {messages.length == 0 && <div>You have no messages here</div>}
       <div>
         {messages.map((message) => {
           return (

@@ -21,6 +21,11 @@ export enum Collections {
   conversations = "conversations",
 }
 
+export enum ConversationType {
+  dm = "dm",
+  team = "team",
+}
+
 export type TUser = {
   displayName: string;
   photoUrl: string;
