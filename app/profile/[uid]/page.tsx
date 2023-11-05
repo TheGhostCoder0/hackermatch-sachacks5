@@ -75,12 +75,12 @@ export default function Profile({ params }: { params: { uid: string } }) {
             </p>
           </div>
           {/* Links */}
-          <dl className="bg-black p-4">
+          <dl className="bg-black p-4 rounded-lg shadow mb-6 w-full">
             {user.linkedinUrl && (
               <dd className="mb-1">
                 <a
                   href={user.linkedinUrl}
-                  className="flex justify-between items-center text-slate-200 hover:text-white"
+                  className="flex items-center text-slate-200 hover:text-white"
                 >
                   <span className="mr-2">LinkedIn </span>
                   <AiFillLinkedin />
@@ -91,7 +91,7 @@ export default function Profile({ params }: { params: { uid: string } }) {
               <dd className="mb-1">
                 <a
                   href={user.githubProfileUrl}
-                  className="flex justify-between items-center text-slate-200 hover:text-white"
+                  className="flex items-center text-slate-200 hover:text-white"
                 >
                   <span className="mr-2">GitHub</span>
                   <AiFillGithub />
@@ -102,7 +102,7 @@ export default function Profile({ params }: { params: { uid: string } }) {
               <dd className="mb-1">
                 <a
                   href={user.devpostProfileUrl}
-                  className="flex justify-between items-center text-slate-200 hover:text-white"
+                  className="flex items-center text-slate-200 hover:text-white"
                 >
                   <span className="mr-2">Devpost </span>
                   <SiDevpost />

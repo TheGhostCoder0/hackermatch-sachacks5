@@ -63,7 +63,7 @@ export default function Home() {
         <div className="mb-2 px-2">
           <button
             onClick={() => setShowCreateTeamModal(true)}
-            className="text-xl w-full bg-white text-black hover:bg-match-pink hover:text-white transition duration-200 ease-in-out rounded-md px-3 py-3 my-1 w-full"
+            className="text-xl bg-white text-black hover:bg-match-pink hover:text-white transition duration-200 ease-in-out rounded-md px-3 py-3 my-1 w-full"
           >
             Create Team
           </button>
