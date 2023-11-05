@@ -49,7 +49,7 @@ export const DirectMessage: React.FC<DirectMessageProps> = ({
   ).withConverter(addIdConverter);
   const [messages, loading] = useCollectionData(q);
 
-const scrollToBottom = () => {
+  const scrollToBottom = () => {
     // Step 2: Define the scrollToBottom function
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -129,42 +129,46 @@ const scrollToBottom = () => {
 
   return (
     <div
-      className="flex flex-col bg-black"
+      className="flex flex-col bg-black rounded-md"
       style={{ height: "calc(100vh - 140px)" }}
     >
       <div className="flex-none">
         {/* Top Bar */}
-        <div className="flex items-center p-4">
-          <div className="bg-white p-4 rounded-md shadow flex justify-center items-center">
+        <div className="flex items-center p-4 space-x-6">
+          {/* Team Name */}
+          <div className="bg-white p-4 rounded-md shadow flex items-center">
             <h1 className="font-bold text-3xl underline">{name}</h1>
           </div>
-          {/* Conditional button */}
-          {conversationType == ConversationType.dm && (
-            <>
-              <button
-                onClick={() => setShowAddToTeamModal(true)}
-                className="ml-6 text-lg bg-white text-black rounded-md hover:bg-hacker-green hover:text-white hover:scale-110 transition duration-200 ease-in-out px-8 py-4"
-              >
-                Add to team
-              </button>
-              {showAddToTeamModal && (
-                <AddToTeamModal
-                  name={name}
-                  otherPersonsId={otherPersonsId}
-                  onClose={() => setShowAddToTeamModal(false)}
-                />
-              )}
-            </>
+
+          {/* Conditional Add to Team Button */}
+          {conversationType === ConversationType.dm && (
+            <button
+              onClick={() => setShowAddToTeamModal(true)}
+              className="text-lg bg-white text-black rounded-md hover:bg-hacker-green hover:text-white hover:scale-110 transition duration-200 ease-in-out px-8 py-4"
+            >
+              Add to team
+            </button>
+          )}
+
+          {/* Conditional Members display */}
+          {conversationType === ConversationType.team && (
+            <div
+              className="text-md bg-white p-4 rounded-md shadow flex items-center text-black"
+              style={{ maxWidth: "fit-content" }}
+            >
+              Members: {groupMemberList}
+            </div>
+          )}
+
+          {/* Modal for Adding to Team */}
+          {showAddToTeamModal && conversationType === ConversationType.dm && (
+            <AddToTeamModal
+              name={name}
+              otherPersonsId={otherPersonsId}
+              onClose={() => setShowAddToTeamModal(false)}
+            />
           )}
         </div>
-        {conversationType == ConversationType.team && (
-          <div
-            className="bg-white text-md p-4 mb-2 rounded-md shadow flex justify-center items-center ml-4"
-            style={{ maxWidth: "fit-content" }}
-          >
-            Members: {groupMemberList}
-          </div>
-        )}
       </div>
 
       {/* Messages Container */}

@@ -14,6 +14,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { CgSpinner } from "react-icons/cg";
 import Image from "next/image";
 import Link from "next/link";
+import SearchBar from "@/app/home/components/SearchBar";
 
 interface FindTeammatesProps {}
 
@@ -117,76 +118,84 @@ export const FindTeammates: React.FC<FindTeammatesProps> = ({}) => {
   };
 
   return (
-    <div className="flex items-center justify-center mt-4">
-      {/* Yes button on the left */}
-      <button
-        onClick={handleCreateOrNavigateToConversation}
-        className="bg-hacker-green text-white font-bold text-lg rounded-full flex items-center justify-center"
-        style={{ width: "80px", height: "80px", lineHeight: "80px" }} // Force the button to be circular with specific size
-      >
-        Yes
-      </button>
+    <div>
+      <div className="flex items-center justify-center mt-0">
+        {/* Yes button on the left */}
+        <button
+          onClick={handleCreateOrNavigateToConversation}
+          className="bg-hacker-green text-white font-bold text-lg rounded-full flex items-center justify-center"
+          style={{ width: "80px", height: "80px", lineHeight: "80px" }} // Force the button to be circular with specific size
+        >
+          Yes
+        </button>
 
-      {/* Black box container */}
-      <a className="flex flex-col bg-black p-4 rounded-md shadow-lg mx-6 my-4 w-full md:w-5/6 lg:w-3/4 xl:w-2/3 cursor-pointer">
-        <Link href={`/profile/${idxUser.uid}`}>
-          <div className="flex flex-col bg-black p-4 rounded-md shadow-lg mx-6 my-4 w-full md:w-5/6 lg:w-3/4 xl:w-2/3">
-            {loading ? (
-              <CgSpinner className="animate-spin" />
-            ) : (
-              <div className="flex flex-col items-start w-full ml-20">
-                {" "}
-                {/* Align items to start and add left margin */}
-                <div className="flex items-center mb-4 w-full">
-                  <Image
-                    src={idxUser.photoUrl || "default-avatar.png"}
-                    alt={idxUser.displayName || "User"}
-                    width={120}
-                    height={120}
-                    className="rounded-full"
-                  />
-                  <h1 className="text-3xl font-bold text-white ml-12">
-                    {idxUser.displayName
-                      ? renderColoredName(idxUser.displayName)
-                      : "Name not provided"}
-                  </h1>
+        {/* Black box container */}
+        <a className="flex flex-col bg-black p-4 rounded-md shadow-lg mx-6 my-4 w-full md:w-5/6 lg:w-3/4 xl:w-2/3 cursor-pointer">
+          <Link href={`/profile/${idxUser.uid}`}>
+            <div className="flex flex-col bg-black p-4 rounded-md shadow-lg mx-6 my-4 w-full md:w-5/6 lg:w-3/4 xl:w-2/3">
+              {loading ? (
+                <CgSpinner className="animate-spin" />
+              ) : (
+                <div className="flex flex-col items-start w-full ml-20">
+                  {" "}
+                  {/* Align items to start and add left margin */}
+                  <div className="flex items-center mb-4 w-full">
+                    <Image
+                      src={idxUser.photoUrl || "default-avatar.png"}
+                      alt={idxUser.displayName || "User"}
+                      width={120}
+                      height={120}
+                      className="rounded-full"
+                    />
+                    <h1 className="text-3xl font-bold text-white ml-12">
+                      {idxUser.displayName
+                        ? renderColoredName(idxUser.displayName)
+                        : "Name not provided"}
+                    </h1>
+                  </div>
+                  <div className="mt-3 w-full">
+                    <ul className="list-disc space-y-2 text-white pl-5 mb-6">
+                      <li>
+                        Location: {idxUser.location || "Location not provided"}
+                      </li>
+                      <li>
+                        College: {idxUser.college || "College not provided"}
+                      </li>
+                      <li>Major: {idxUser.major || "Major not provided"}</li>
+                      <li className="text-white">
+                        Skills: {idxUser.skills || "No skills provided"}
+                      </li>
+                      <li>
+                        Number of hackathons:{" "}
+                        {idxUser.hackathons || "Not specified"}
+                      </li>
+                      <li>
+                        Current Hackathon:{" "}
+                        {idxUser.currentHackathon || "Not participating"}
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div className="mt-3 w-full">
-                  <ul className="list-disc space-y-2 text-white pl-5 mb-6">
-                    <li>
-                      Location: {idxUser.location || "Location not provided"}
-                    </li>
-                    <li>
-                      College: {idxUser.college || "College not provided"}
-                    </li>
-                    <li>Major: {idxUser.major || "Major not provided"}</li>
-                    <li className="text-white">
-                      Skills: {idxUser.skills || "No skills provided"}
-                    </li>
-                    <li>
-                      Number of hackathons:{" "}
-                      {idxUser.hackathons || "Not specified"}
-                    </li>
-                    <li>
-                      Current Hackathon:{" "}
-                      {idxUser.currentHackathon || "Not participating"}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            )}
-          </div>
-        </Link>
-      </a>
+              )}
+            </div>
+          </Link>
+        </a>
 
-      {/* No button on the right */}
-      <button
-        onClick={() => setIndex(index + 1)}
-        className="bg-match-pink text-white font-bold text-lg rounded-full flex items-center justify-center"
-        style={{ width: "80px", height: "80px", lineHeight: "80px" }} // Force the button to be circular with specific size
-      >
-        No
-      </button>
+        {/* No button on the right */}
+        <button
+          onClick={() => setIndex(index + 1)}
+          className="bg-match-pink text-white font-bold text-lg rounded-full flex items-center justify-center"
+          style={{ width: "80px", height: "80px", lineHeight: "80px" }} // Force the button to be circular with specific size
+        >
+          No
+        </button>
+      </div>
+      {/* <div className="flex items-center justify-center mt-4">
+        <div className="w-full md:w-5/6 lg:w-3/4 xl:w-2/3">
+
+          <SearchBar />
+        </div>
+      </div> */}
     </div>
   );
 };

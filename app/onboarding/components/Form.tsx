@@ -46,7 +46,7 @@ const Form = () => {
   return (
     <div className="flex justify-center">
       <div
-        className="rounded border border-gray-200 shadow-lg px-10 py-8"
+        className="rounded-md border border-gray-200 shadow-lg px-10 py-8"
         style={{
           backgroundColor: "black",
           borderColor: "white",

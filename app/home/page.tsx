@@ -43,7 +43,7 @@ export default function Home() {
       }}
     >
       {/* sidebar with black background */}
-      <div className="flex flex-col p-2 bg-black mx-2 mr-12">
+      <div className="flex flex-col p-2 bg-black rounded-md mx-2 mr-12">
         {/* Find Teammates button with white background and rounded corners */}
         <div className="px-2">
           <button
