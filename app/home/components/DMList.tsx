@@ -10,7 +10,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { State } from "../page";
 
-export const convosConverter: FirestoreDataConverter<any> = {
+export const addIdConverter: FirestoreDataConverter<any> = {
   toFirestore: (data: any) => data,
   fromFirestore: (snapshots, options) => {
     const data = snapshots.data(options);
@@ -23,9 +23,10 @@ export const convosConverter: FirestoreDataConverter<any> = {
 };
 
 interface DMListProps {
+  setConversationType: (type: ConversationType) => void;
   setState: (state: State) => void;
-  setConvoId: (id: string) => void;
   setName: (name: string) => void;
+  setConversation: (conversation: any) => void;
 }
 
 const getName = (names: string[], userName: string) => {
@@ -40,16 +41,17 @@ const getName = (names: string[], userName: string) => {
 };
 
 export const DMList: React.FC<DMListProps> = ({
-  setConvoId,
+  setConversationType,
   setState,
   setName,
+  setConversation,
 }) => {
   const [user] = useAuthState(auth);
   const q = query(
     collection(db, Collections.conversations),
     where("participants", "array-contains", user?.uid),
     where("type", "==", ConversationType.dm)
-  ).withConverter(convosConverter);
+  ).withConverter(addIdConverter);
 
   const [conversations, loading] = useCollectionData(q);
   if (!user) return <div>Not logged in</div>;
@@ -65,7 +67,8 @@ export const DMList: React.FC<DMListProps> = ({
             onClick={() => {
               setName(getName(conversation.names, user?.displayName as string));
               setState(State.DirectMessage);
-              setConvoId(conversation.id);
+              setConversation(conversation);
+              setConversationType(ConversationType.dm);
             }}
             key={conversation.id}
           >

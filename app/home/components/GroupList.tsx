@@ -4,16 +4,20 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { State } from "../page";
-import { convosConverter } from "./DMList";
+import { addIdConverter } from "./DMList";
 
 interface GroupListProps {
+  setConversationType: (type: ConversationType) => void;
+  setConversation: (conversation: any) => void;
+  setGroupMemberList: (memberList: string) => void;
   setState: (state: State) => void;
-  setConvoId: (id: string) => void;
   setName: (name: string) => void;
 }
 
 export const GroupList: React.FC<GroupListProps> = ({
-  setConvoId,
+  setConversationType,
+  setConversation,
+  setGroupMemberList,
   setState,
   setName,
 }) => {
@@ -21,11 +25,9 @@ export const GroupList: React.FC<GroupListProps> = ({
 
   const q = query(
     collection(db, Collections.conversations),
-
-    // this doesn't work :(
     where("participants", "array-contains", user?.uid),
     where("type", "==", ConversationType.team)
-  ).withConverter(convosConverter);
+  ).withConverter(addIdConverter);
   const [conversations, loading] = useCollectionData(q);
   if (!user) return <div>Not logged in</div>;
   if (loading) return <div>Loading...</div>;
@@ -38,9 +40,16 @@ export const GroupList: React.FC<GroupListProps> = ({
           <button
             className="border px-4 py-2 rounded"
             onClick={() => {
+              let names = "";
+              for (let i = 0; i < conversation.names.length; i++) {
+                names += conversation.names[i] + ", ";
+              }
+              names = names.slice(0, -2);
+              setGroupMemberList(names);
+              setConversation(conversation);
+              setConversationType(ConversationType.team);
               setName(conversation.name);
               setState(State.DirectMessage);
-              setConvoId(conversation.id);
             }}
             key={conversation.id}
           >

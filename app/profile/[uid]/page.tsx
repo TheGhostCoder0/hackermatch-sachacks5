@@ -1,19 +1,12 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { Collections, db } from "@/app/firebase/client";
+import { collection, query, where } from "firebase/firestore";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { AiFillLinkedin, AiFillGithub } from "react-icons/ai";
-import { SiDevpost } from "react-icons/si";
-import {
-  collection,
-  doc,
-  getDoc,
-  getFirestore,
-  query,
-  where,
-} from "firebase/firestore";
-import { db, Collections } from "@/app/firebase/client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import { SiDevpost } from "react-icons/si";
 
 export default function Profile({ params }: { params: { uid: string } }) {
   const router = useRouter();
@@ -27,8 +20,6 @@ export default function Profile({ params }: { params: { uid: string } }) {
 
   const [users, loadingUsers] = useCollectionData(q);
   const user = users?.[0] as any;
-
-  console.log(user);
 
   if (loadingUsers) {
     return <div>Loading...</div>;

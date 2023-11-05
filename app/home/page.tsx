@@ -3,7 +3,7 @@ import { CreateTeamModal } from "@/components/CreateTeamModal";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase/client";
+import { ConversationType, auth } from "../firebase/client";
 import { DMList } from "./components/DMList";
 import { DirectMessage } from "./components/DirectMessage";
 import { FindTeammates } from "./components/FindTeammates";
@@ -17,8 +17,12 @@ export enum State {
 export default function Home() {
   const [state, setState] = useState<State>(State.FindTeammates);
   const [name, setName] = useState<string>("");
-  const [convoId, setConvoId] = useState<string>("");
   const [showCreateTeamModal, setShowCreateTeamModal] = useState(false);
+  const [groupMemberList, setGroupMemberList] = useState<string>("");
+  const [conversation, setConversation] = useState<any>();
+  const [conversationType, setConversationType] = useState<ConversationType>(
+    ConversationType.dm // filler for now
+  );
   const [user, authLoading] = useAuthState(auth);
   const router = useRouter();
 
@@ -65,18 +69,21 @@ export default function Home() {
         )}
         {user && !authLoading && (
           <GroupList
-            setConvoId={setConvoId}
+            setConversation={setConversation}
             setState={setState}
             setName={setName}
+            setGroupMemberList={setGroupMemberList}
+            setConversationType={setConversationType}
           />
         )}
 
         <h1 className="text-xl font-bold mt-4 mb-2">Direct Messages</h1>
         {user && !authLoading && (
           <DMList
-            setConvoId={setConvoId}
+            setConversation={setConversation}
             setState={setState}
             setName={setName}
+            setConversationType={setConversationType}
           />
         )}
       </div>
@@ -90,7 +97,12 @@ export default function Home() {
               <FindTeammates />
             </>
           ) : (
-            <DirectMessage name={name} convoId={convoId} />
+            <DirectMessage
+              name={name}
+              conversation={conversation}
+              groupMemberList={groupMemberList}
+              conversationType={conversationType}
+            />
           )}
         </div>
       )}
