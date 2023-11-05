@@ -39,6 +39,7 @@ export const DirectMessage: React.FC<DirectMessageProps> = ({
   const [user] = useAuthState(auth);
   const [message, setMessage] = useState<string>("");
   const [showAddToTeamModal, setShowAddToTeamModal] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   // get all the messages in this convo
   const q = query(
@@ -47,6 +48,16 @@ export const DirectMessage: React.FC<DirectMessageProps> = ({
     orderBy("createdAt")
   ).withConverter(addIdConverter);
   const [messages, loading] = useCollectionData(q);
+
+const scrollToBottom = () => {
+    // Step 2: Define the scrollToBottom function
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    // Step 3: Scroll to bottom every time messages change
+    scrollToBottom();
+  }, [messages]);
 
   if (loading)
     return (
@@ -169,6 +180,7 @@ export const DirectMessage: React.FC<DirectMessageProps> = ({
             />
           ))
         )}
+        <div ref={messagesEndRef} /> {/* Step 4: Place the ref here */}
       </div>
 
       {/* Message Input */}
