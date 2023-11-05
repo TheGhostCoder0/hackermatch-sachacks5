@@ -18,7 +18,7 @@ export enum Collections {
   users = "users",
   messages = "messages",
   teams = "teams",
-  dms = "dms",
+  conversations = "conversations",
 }
 
 export type TUser = {

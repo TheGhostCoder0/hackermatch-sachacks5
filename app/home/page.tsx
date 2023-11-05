@@ -1,17 +1,31 @@
 "use client";
 import { CreateTeamModal } from "@/components/CreateTeamModal";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase/client";
+import { DMList } from "./components/DMList";
 import { DirectMessage } from "./components/DirectMessage";
 import { FindTeammates } from "./components/FindTeammates";
 
-enum State {
+export enum State {
   FindTeammates,
   DirectMessage,
 }
 
-export default function findTeamates() {
+export default function Home() {
   const [state, setState] = useState<State>(State.FindTeammates);
+  const [convoId, setConvoId] = useState<string>("");
   const [showCreateTeamModal, setShowCreateTeamModal] = useState(false);
+  const [user, authLoading] = useAuthState(auth);
+  const router = useRouter();
+
+  useEffect(() => {
+    // redirect user if they're unauthenticated
+    if (!user && !authLoading) {
+      router.push("/login");
+    }
+  });
 
   return (
     <div
@@ -49,13 +63,24 @@ export default function findTeamates() {
         )}
 
         <h1 className="text-xl font-bold mt-4 mb-2">Direct Messages</h1>
-        <div>You have no DMs :(</div>
+        {user && !authLoading && (
+          <DMList setConvoId={setConvoId} setState={setState} />
+        )}
       </div>
 
       {/* right content */}
-      <div>
-        {state == State.FindTeammates ? <FindTeammates /> : <DirectMessage />}
-      </div>
+      {user && !authLoading && (
+        <div>
+          {state == State.FindTeammates ? (
+            <>
+              <h1 className="font-bold text-2xl mb-4">Find Teammates</h1>
+              <FindTeammates />
+            </>
+          ) : (
+            <DirectMessage convoId={convoId} />
+          )}
+        </div>
+      )}
     </div>
   );
 }

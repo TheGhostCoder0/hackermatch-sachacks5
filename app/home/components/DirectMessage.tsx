@@ -1,7 +1,9 @@
 import React from "react";
 
-interface DirectMessageProps {}
+interface DirectMessageProps {
+  convoId: string;
+}
 
-export const DirectMessage: React.FC<DirectMessageProps> = ({}) => {
-  return <div>direct messages</div>;
+export const DirectMessage: React.FC<DirectMessageProps> = ({ convoId }) => {
+  return <div>{convoId}</div>;
 };
