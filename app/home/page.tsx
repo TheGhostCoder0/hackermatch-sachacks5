@@ -35,57 +35,73 @@ export default function Home() {
 
   return (
     <div
-      className="px-10"
+      className="px-10 flex-grow"
       style={{
         display: "grid",
         gridTemplateColumns: "minmax(150px, 25%) 1fr",
+        height: "calc(100vh - 140px)",
       }}
     >
-      {/* sidebar */}
-      <div className="flex flex-col p-2">
-        <div>
+      {/* sidebar with black background */}
+      <div className="flex flex-col p-2 bg-black mx-2 mr-12">
+        {/* Find Teammates button with white background and rounded corners */}
+        <div className="px-2">
           <button
             onClick={() => setState(State.FindTeammates)}
-            className="text-xl bg-blue-500 text-white rounded-md hover:scale-110 transition duration-200 ease-in-out px-4 py-2"
+            className="text-xl bg-white text-black rounded-md hover:bg-match-pink hover:text-white transition duration-200 ease-in-out px-3 py-3 my-1 w-full"
           >
             Find Teammates
           </button>
         </div>
 
-        <h1 className="text-xl font-bold mt-4 mb-2">Teams</h1>
-        <div className="mb-2">
+        {/* Team title with transparent background */}
+        <h1 className="text-xl font-bold ml-3 mt-4 mb-2 text-white bg-transparent">
+          Teams
+        </h1>
+
+        {/* Create Team button with white background and rounded corners */}
+        <div className="mb-2 px-2">
           <button
             onClick={() => setShowCreateTeamModal(true)}
-            className="text-xl bg-blue-500 text-white rounded-md hover:scale-110 transition duration-200 ease-in-out px-4 py-2"
+            className="text-xl w-full bg-white text-black hover:bg-match-pink hover:text-white transition duration-200 ease-in-out rounded-md px-3 py-3 my-1 w-full"
           >
             Create Team
           </button>
         </div>
+
         {showCreateTeamModal && (
           <CreateTeamModal
             title="Create Team"
             onClose={() => setShowCreateTeamModal(false)}
           />
         )}
-        {user && !authLoading && (
-          <GroupList
-            setConversation={setConversation}
-            setState={setState}
-            setName={setName}
-            setGroupMemberList={setGroupMemberList}
-            setConversationType={setConversationType}
-          />
-        )}
+        <div className="flex flex-col">
+          {/* Active teams list (assuming GroupList component handles its own styling) */}
+          {user && !authLoading && (
+            <GroupList
+              setConversation={setConversation}
+              setState={setState}
+              setName={setName}
+              setGroupMemberList={setGroupMemberList}
+              setConversationType={setConversationType}
+            />
+          )}
 
-        <h1 className="text-xl font-bold mt-4 mb-2">Direct Messages</h1>
-        {user && !authLoading && (
-          <DMList
-            setConversation={setConversation}
-            setState={setState}
-            setName={setName}
-            setConversationType={setConversationType}
-          />
-        )}
+          {/* Direct Message title with transparent background */}
+          <h1 className="text-xl font-bold ml-3 mt-4 mb-2 text-white bg-transparent">
+            Direct Messages
+          </h1>
+
+          {/* Direct messages list (assuming DMList component handles its own styling) */}
+          {user && !authLoading && (
+            <DMList
+              setConversation={setConversation}
+              setState={setState}
+              setName={setName}
+              setConversationType={setConversationType}
+            />
+          )}
+        </div>
       </div>
 
       {/* right content */}

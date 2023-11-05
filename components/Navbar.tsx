@@ -19,7 +19,7 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
         {/* Only show the profile button if the user is signed in */}
         {user && (
           <button
-            className="text-white hover:bg-match-pink pd-1"
+            className="text-white bg-transparent hover:bg-match-pink py-2 px-4 rounded transition duration-200 ease-in-out"
             onClick={() => {
               router.push(`/profile/${user.uid}`);
             }}

@@ -68,7 +68,7 @@ export const AddToTeamModal: React.FC<AddToTeamModalProps> = ({
           toast.success(`Added ${name} to team!`);
           onClose();
         }}
-        className="text-lg bg-blue-500 text-white rounded-md hover:scale-110 transition duration-200 ease-in-out px-4 py-2"
+        className="text-lg bg-hacker-green hover:bg-match-pink text-white rounded-md hover:scale-110 transition duration-200 ease-in-out px-4 py-2"
       >
         Submit
       </button>

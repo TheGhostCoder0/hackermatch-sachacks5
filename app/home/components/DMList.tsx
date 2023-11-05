@@ -59,24 +59,21 @@ export const DMList: React.FC<DMListProps> = ({
   if (!conversations) return <div>You have no DMs :(</div>;
 
   return (
-    <div>
-      {conversations.map((conversation) => {
-        return (
-          <button
-            className="border px-4 py-2 rounded"
-            onClick={() => {
-              setName(getName(conversation.names, user?.displayName as string));
-              setState(State.DirectMessage);
-              setConversation(conversation);
-              setConversationType(ConversationType.dm);
-            }}
-            key={conversation.id}
-          >
-            {/* hopefully this doesn't break anything */}
-            {getName(conversation.names, user?.displayName as string)}
-          </button>
-        );
-      })}
+    <div className="flex flex-col bg-black px-2 py-1">
+      {conversations.map((conversation) => (
+        <button
+          className="bg-white text-black hover:bg-hacker-green hover:text-white rounded-md px-3 py-1 my-1 w-full text-left"
+          onClick={() => {
+            setName(getName(conversation.names, user?.displayName as string));
+            setState(State.DirectMessage);
+            setConversation(conversation);
+            setConversationType(ConversationType.dm);
+          }}
+          key={conversation.id}
+        >
+          {getName(conversation.names, user?.displayName as string)}
+        </button>
+      ))}
     </div>
   );
 };

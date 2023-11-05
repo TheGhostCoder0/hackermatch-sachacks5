@@ -34,30 +34,23 @@ export const GroupList: React.FC<GroupListProps> = ({
   if (!conversations) return <div>You have no DMs :(</div>;
 
   return (
-    <div>
-      {conversations.map((conversation) => {
-        return (
-          <button
-            className="border px-4 py-2 rounded"
-            onClick={() => {
-              let names = "";
-              for (let i = 0; i < conversation.names.length; i++) {
-                names += conversation.names[i] + ", ";
-              }
-              names = names.slice(0, -2);
-              setGroupMemberList(names);
-              setConversation(conversation);
-              setConversationType(ConversationType.team);
-              setName(conversation.name);
-              setState(State.DirectMessage);
-            }}
-            key={conversation.id}
-          >
-            {/* team conversations have a name */}
-            {conversation.name}
-          </button>
-        );
-      })}
+    <div className="flex flex-col bg-black px-2 py-1">
+      {conversations.map((conversation) => (
+        <button
+          className="bg-white text-black hover:bg-hacker-green hover:text-white rounded-md px-3 py-1 my-1 w-full text-left"
+          onClick={() => {
+            let names = conversation.names.join(", ");
+            setGroupMemberList(names);
+            setConversation(conversation);
+            setConversationType(ConversationType.team);
+            setName(conversation.name);
+            setState(State.DirectMessage);
+          }}
+          key={conversation.id}
+        >
+          {conversation.name}
+        </button>
+      ))}
     </div>
   );
 };
