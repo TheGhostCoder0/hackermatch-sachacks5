@@ -49,9 +49,9 @@ export default function Profile({ params }: { params: { uid: string } }) {
             "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
           }
           alt="Profile picture"
-          width={300}
-          height={300}
-          className="object-cover object-center w-full h-full"
+          width={150}
+          height={150}
+          className="object-center"
         />
       </div>
 
