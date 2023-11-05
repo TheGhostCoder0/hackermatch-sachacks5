@@ -15,6 +15,7 @@ export enum State {
 
 export default function Home() {
   const [state, setState] = useState<State>(State.FindTeammates);
+  const [name, setName] = useState<string>("");
   const [convoId, setConvoId] = useState<string>("");
   const [showCreateTeamModal, setShowCreateTeamModal] = useState(false);
   const [user, authLoading] = useAuthState(auth);
@@ -64,7 +65,11 @@ export default function Home() {
 
         <h1 className="text-xl font-bold mt-4 mb-2">Direct Messages</h1>
         {user && !authLoading && (
-          <DMList setConvoId={setConvoId} setState={setState} />
+          <DMList
+            setConvoId={setConvoId}
+            setState={setState}
+            setName={setName}
+          />
         )}
       </div>
 
@@ -77,7 +82,7 @@ export default function Home() {
               <FindTeammates />
             </>
           ) : (
-            <DirectMessage convoId={convoId} />
+            <DirectMessage name={name} convoId={convoId} />
           )}
         </div>
       )}

@@ -25,6 +25,7 @@ const convosConverter: FirestoreDataConverter<any> = {
 interface DMListProps {
   setState: (state: State) => void;
   setConvoId: (id: string) => void;
+  setName: (name: string) => void;
 }
 
 const getName = (names: string[], userName: string) => {
@@ -38,7 +39,11 @@ const getName = (names: string[], userName: string) => {
   return name;
 };
 
-export const DMList: React.FC<DMListProps> = ({ setConvoId, setState }) => {
+export const DMList: React.FC<DMListProps> = ({
+  setConvoId,
+  setState,
+  setName,
+}) => {
   const [user] = useAuthState(auth);
   const q = query(
     collection(db, Collections.conversations),
@@ -57,6 +62,7 @@ export const DMList: React.FC<DMListProps> = ({ setConvoId, setState }) => {
           <button
             className="border px-4 py-2 rounded"
             onClick={() => {
+              setName(getName(conversation.names, user?.displayName as string));
               setState(State.DirectMessage);
               setConvoId(conversation.id);
             }}
