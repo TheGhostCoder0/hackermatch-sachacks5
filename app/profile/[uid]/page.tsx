@@ -37,10 +37,10 @@ export default function Profile({ params }: { params: { uid: string } }) {
     const words = name.split(" ");
     return (
       <>
-        <span style={{ color: "#00A651" }}>{words[0] + "_"}</span>
+        <span className="text-hacker-green">{words[0] + "_"}</span>
         {words.length > 1 && (
           <>
-            <span style={{ color: "#EC008C" }}>{words.slice(1).join("")}</span>
+            <span className="text-match-pink">{words.slice(1).join("")}</span>
           </>
         )}
       </>

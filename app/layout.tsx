@@ -9,7 +9,7 @@ const azeretMono = Azeret_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "HackerMatch",
-  description: "Ballin since 1969",
+  description: "Helping Hackers Make Matches",
 };
 
 export default function RootLayout({
@@ -19,6 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <link rel="icon" href="/favicon.png" />
       <body className={`${inter.className} ${azeretMono.className}`}>
         <FirestoreProvider>
           <Navbar />
