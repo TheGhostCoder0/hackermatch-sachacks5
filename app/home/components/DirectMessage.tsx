@@ -13,7 +13,6 @@ interface DirectMessageProps {
   conversationType: ConversationType;
 }
 
-
 const Msg: React.FC<{ isSender: boolean; content: string }> = ({
   isSender,
   content,
@@ -83,7 +82,7 @@ export const DirectMessage: React.FC<DirectMessageProps> = ({
     >
       <div className="flex-none">
         {/* Top Bar */}
-        <div className="flex items-center mb-6 p-4">
+        <div className="flex items-center p-4">
           <div className="bg-white p-4 rounded-md shadow flex justify-center items-center">
             <h1 className="font-bold text-3xl underline">{name}</h1>
           </div>
@@ -107,7 +106,12 @@ export const DirectMessage: React.FC<DirectMessageProps> = ({
           )}
         </div>
         {conversationType == ConversationType.team && (
-          <div className="text-md p-4">Members: {groupMemberList}</div>
+          <div
+            className="bg-white text-md p-4 mb-2 rounded-md shadow flex justify-center items-center ml-4"
+            style={{ maxWidth: "fit-content" }}
+          >
+            Members: {groupMemberList}
+          </div>
         )}
       </div>
 
